@@ -19,11 +19,11 @@ const Container = styled.div`
   background-image: url("https://images.unsplash.com/photo-1522071901873-411886a10004?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80");
 `;
 
-const OpacityOverlay = tw.div`z-10 absolute inset-0 bg-gray-900 opacity-25`;
+const OpacityOverlay = tw.div`z-10 absolute inset-0 bg-gray-800 opacity-75`;
 
 const HeroContainer = tw.div`z-20 relative px-4 sm:px-8 max-w-screen-xl mx-auto`;
 const TwoColumn = tw.div`pt-24 pb-32 px-4 flex justify-between items-center flex-col lg:flex-row`;
-const LeftColumn = tw.div`flex flex-col items-center lg:block`;
+const LeftColumn = tw.div`flex flex-col items-center mx-auto`;
 
 const Heading = styled.h1`
   ${tw`text-3xl text-center lg:text-left sm:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-100 leading-none`}
