@@ -75,7 +75,7 @@ export default () => {
 		<Container>
 			<ThreeColumnContainer>
 				<Heading>
-					Our Professional <span tw="text-primary-500">Services</span>
+					Our Professional <span tw="text-yellow-800">Services</span>
 				</Heading>
 				{services.length > 0 ? (
 					services.map((service, i) => (

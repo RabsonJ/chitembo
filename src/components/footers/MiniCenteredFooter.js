@@ -36,7 +36,7 @@ export default () => {
         <Row>
           <LogoContainer>
             {/* <LogoImg src={logo} /> */}
-            <LogoText>ChiArchi Studio</LogoText>
+            <LogoText>ChiArch Studio</LogoText>
           </LogoContainer>
           <LinksContainer>
             <Link href="#">Home</Link>

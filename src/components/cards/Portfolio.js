@@ -36,61 +36,67 @@ const Link = styled(PrimaryButtonBase).attrs({as: "a"})`
 `
 
 export default ({
-  heading = <>Our <span tw="text-primary-500">Amazing Work.</span></>,
-  description = "Some amazing of the amazing work we have done for our clients.",
-
+	heading = (
+		<>
+			Our <span tw="text-yellow-800">Amazing Work.</span>
+		</>
+	),
+	description = 'Some amazing of the amazing work we have done for our clients.',
 }) => {
-  const blogPosts = [
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80",
-      category: "Construction",
-      title: "Designing quality buildings",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1479660095429-2cf4e1360472?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80",
-      category: "Design",
-      title: "Creating The perfect home office",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1579869847514-7c1a19d2d2ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-      category: "3D Rendering",
-      title: "The Perfect Visualization",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    }
-  ];
-  return (
-    <Container>
-      <Content>
-        <HeadingInfoContainer>
-          <HeadingTitle>{heading}</HeadingTitle>
-          <HeadingDescription>{description}</HeadingDescription>
-        </HeadingInfoContainer>
-        <ThreeColumn>
-          {blogPosts.map((post, index) => (
-            <Column key={index}>
-              <Card>
-                <Image imageSrc={post.imageSrc} />
-                <Details>
-                  <MetaContainer>
-                    <Meta>
-                      <TagIcon />
-                      <div>{post.category}</div>
-                    </Meta>
-                  </MetaContainer>
-                  <Title>{post.title}</Title>
-                  <Description>{post.description}</Description>
-                </Details>
-              </Card>
-            </Column>
-          ))}
-        </ThreeColumn>
-          {/* <Link href='/'>Read Post</Link> */}
-      </Content>
-    </Container>
-  );
+	const blogPosts = [
+		{
+			imageSrc:
+				'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80',
+			category: 'Construction',
+			title: 'Designing quality buildings',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		},
+		{
+			imageSrc:
+				'https://images.unsplash.com/photo-1479660095429-2cf4e1360472?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80',
+			category: 'Design',
+			title: 'Creating The perfect home office',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		},
+		{
+			imageSrc:
+				'https://images.unsplash.com/photo-1579869847514-7c1a19d2d2ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+			category: '3D Rendering',
+			title: 'The Perfect Visualization',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		},
+	];
+	return (
+		<Container>
+			<Content>
+				<HeadingInfoContainer>
+					<HeadingTitle>{heading}</HeadingTitle>
+					<HeadingDescription>{description}</HeadingDescription>
+				</HeadingInfoContainer>
+				<ThreeColumn>
+					{blogPosts.map((post, index) => (
+						<Column key={index}>
+							<Card>
+								<Image imageSrc={post.imageSrc} />
+								<Details>
+									<MetaContainer>
+										<Meta>
+											<TagIcon />
+											<div>{post.category}</div>
+										</Meta>
+									</MetaContainer>
+									<Title>{post.title}</Title>
+									<Description>{post.description}</Description>
+								</Details>
+							</Card>
+						</Column>
+					))}
+				</ThreeColumn>
+				{/* <Link href='/'>Read Post</Link> */}
+			</Content>
+		</Container>
+	);
 };
