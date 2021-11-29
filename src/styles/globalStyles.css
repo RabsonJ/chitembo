@@ -1,3 +1,9 @@
+body {
+    background-color: #f8f8f8;
+    color: #111111;
+    scroll-behavior: smooth;
+}
+
 /* Below animations are fore modal created using React-Modal */
 .ReactModal__Overlay {
     transition: transform 300ms ease-in-out;
