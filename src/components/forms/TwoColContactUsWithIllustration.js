@@ -6,8 +6,8 @@ import {
 	SectionHeading,
 	Subheading as SubheadingBase,
 } from 'components/misc/Headings.js';
-import { PrimaryButton as PrimaryButtonBase } from 'components/misc/Buttons.js';
 import EmailIllustrationSrc from 'images/email-illustration.svg';
+import { PopupButton } from '@typeform/embed-react';
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-20 md:py-24`;
@@ -26,20 +26,17 @@ const Image = styled.div((props) => [
 ]);
 const TextContent = tw.div`lg:py-8 text-center md:text-left`;
 
-const Subheading = tw.p`text-center md:text-left`;
 const Heading = tw(
 	SectionHeading
 )`mt-4 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
-const Description = tw.p`mt-4 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`;
+const Description = tw.p`my-4 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`;
 
-const Form = tw.form`mt-8 md:mt-10 text-sm flex flex-col w-3/4`;
-const Input = tw.input`border-2 px-5 py-3 mb-5 rounded focus:outline-none font-medium transition duration-300 hocus:border-yellow-800`;
-const Textarea = tw.input`border-2 px-5 py-3 mb-5 rounded focus:outline-none font-medium transition duration-300 hocus:border-yellow-800`;
-
-const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-3`;
+const SubmitButton = tw.button`mt-2
+								px-8 py-3 rounded bg-yellow-800 text-gray-100
+								hocus:bg-yellow-700 hocus:text-gray-200 focus:shadow-outline
+								border-b-0`;
 
 export default ({
-	subheading = 'Contact Us',
 	heading = (
 		<>
 			Feel free to <span tw="text-yellow-800">get in touch</span>
@@ -48,8 +45,6 @@ export default ({
 	),
 	description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 	submitButtonText = 'Contact Us',
-	formAction = '#',
-	formMethod = 'get',
 	textOnLeft = true,
 }) => {
 	// The textOnLeft boolean prop can be used to display either the text on left or right side of the image.
@@ -62,35 +57,18 @@ export default ({
 				</ImageColumn>
 				<TextColumn textOnLeft={textOnLeft}>
 					<TextContent>
-						{subheading && <Subheading>{subheading}</Subheading>}
 						<Heading>{heading}</Heading>
 						<Description>{description}</Description>
-						<iframe
-							class="airtable-embed"
-							src="https://airtable.com/embed/shr65ax0rqZb5gvIC?backgroundColor=gray"
-							frameborder="0"
-							onmousewheel=""
-							width="100%"
-							height="533"
-							style={{background: 'transparent', border: '1px solid #ccc'}}
-						></iframe>
-						<Form action={formAction} method={formMethod}>
-							<Input
-								type="type"
-								name="name" // name should matched with your airtable table field
-								placeholder="Your Name"
-							/>
-							<Input
-								type="email"
-								name="email" // name should matched with your airtable table field
-								placeholder="Your Email Address"
-							/>
-							<Textarea
-								name="message" // name should matched with your airtable table field
-								placeholder="What's your message?"
-							/>
+						<PopupButton
+							id="EyoWaY6e"
+							style={{ fontSize: 20 }}
+							width="90%"
+							hideHeaders="true"
+							hideFooter="true"
+							autoClose="3000"
+						>
 							<SubmitButton type="submit">{submitButtonText}</SubmitButton>
-						</Form>
+						</PopupButton>
 					</TextContent>
 				</TextColumn>
 			</TwoColumn>
