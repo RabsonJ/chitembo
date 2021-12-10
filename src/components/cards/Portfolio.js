@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
+import axios from 'axios'
 import tw from "twin.macro";
 import styled from "styled-components";
 import {css} from "styled-components/macro"; //eslint-disable-line
@@ -43,6 +44,28 @@ export default ({
 	),
 	description = 'Some amazing of the amazing work we have done for our clients.',
 }) => {
+	  const [works, setWorks] = useState([]);
+
+  useEffect(() => {
+    const getRecords = async () => {
+      try {
+        const { data } = await axios.get(
+					`https://api.airtable.com/v0/appz7kvM5UFGYYwLW/Images?maxRecords=6`,
+					{
+						headers: {
+							Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_TOKEN}`,
+						},
+					}
+				);
+			setWorks(data.records);
+			console.log(data.records)
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    getRecords();
+	}, []);
 	const blogPosts = [
 		{
 			imageSrc:
@@ -72,29 +95,34 @@ export default ({
 	return (
 		<Container>
 			<Content>
-				<HeadingInfoContainer>
-					<HeadingTitle>{heading}</HeadingTitle>
-					<HeadingDescription>{description}</HeadingDescription>
-				</HeadingInfoContainer>
-				<ThreeColumn>
-					{blogPosts.map((post, index) => (
-						<Column key={index}>
-							<Card>
-								<Image imageSrc={post.imageSrc} />
-								<Details>
-									<MetaContainer>
-										<Meta>
-											<TagIcon />
-											<div>{post.category}</div>
-										</Meta>
-									</MetaContainer>
-									<Title>{post.title}</Title>
-									<Description>{post.description}</Description>
-								</Details>
-							</Card>
-						</Column>
-					))}
-				</ThreeColumn>
+				{works.length > 0 ? (
+					<span>
+						<HeadingInfoContainer>
+							<HeadingTitle>{heading}</HeadingTitle>
+							<HeadingDescription>{description}</HeadingDescription>
+						</HeadingInfoContainer>
+							<ThreeColumn>
+								{works.filter(work => work.fields?.images !== undefined).map((work) => (
+									<Column key={work.id}>
+										<Card>
+											<Image imageSrc={work.fields?.images !== undefined ? work.fields?.images[0].url : ''} />
+											<Details>
+												<MetaContainer>
+													<Meta>
+														<TagIcon />
+														{/* <div>{work.fields?.service !== undefined ? work.fields?.service[0] : 'Design'}</div> */}
+														<div>Design</div>
+													</Meta>
+												</MetaContainer>
+												<Title>{work.fields.title}</Title>
+												<Description>{work.fields.description}</Description>
+											</Details>
+										</Card>
+									</Column>
+								))}
+							</ThreeColumn>
+					</span>		
+				) : null}
 				{/* <Link href='/'>Read Post</Link> */}
 			</Content>
 		</Container>
