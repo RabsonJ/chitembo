@@ -16,7 +16,7 @@ const StyledHeader = styled(Header)`
 `;
 const Container = styled.div`
   ${tw`relative -mx-8 -mt-8 bg-center bg-cover`}
-  background-image: url("https://images.unsplash.com/photo-1522071901873-411886a10004?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80");
+  background-image: url("https://i.ibb.co/LCGtT4H/hero-image.jpg");
 `;
 
 const OpacityOverlay = tw.div`z-10 absolute inset-0 bg-gray-800 opacity-75`;
@@ -65,7 +65,7 @@ export default () => {
   ];
 
   return (
-    <Container>
+    <Container style={{height: '75vh'}}>
       <OpacityOverlay />
       <HeroContainer>
         <StyledHeader links={navLinks} />
