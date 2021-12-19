@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from "react";
 import axios from 'axios'
 import tw from "twin.macro";
+import _ from 'lodash'
 import styled from "styled-components";
 import {css} from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading as HeadingTitle } from "components/misc/Headings.js";
@@ -18,7 +19,7 @@ const Column = tw.div`mt-16 mx-5`;
 const HeadingInfoContainer = tw.div`flex flex-col items-center`;
 const HeadingDescription = tw.p`mt-4 font-medium text-gray-600 text-center max-w-sm`;
 
-const Card = tw.div`lg:mx-4 xl:mx-8 max-w-sm flex flex-col h-full`;
+const Card = tw.div`lg:mx-4 xl:mx-8 grid grid-cols-1 max-w-sm h-full`;
 const Image = styled.div(props => [
   `background-image: url("${props.imageSrc}");`,
   tw`bg-cover bg-center h-80 lg:h-64 rounded rounded-b-none`
@@ -131,7 +132,9 @@ export default ({
 													</Meta>
 												</MetaContainer>
 												<Title>{work.fields.title}</Title>
-												<Description>{work.fields.description}</Description>
+												<Description>{_.truncate(work.fields.description, {
+												'length': 160
+												})}</Description>
 											</Details>
 										</Card>
 									</Column>
