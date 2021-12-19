@@ -42,9 +42,7 @@ export default () => {
           <LinksContainer>
             <Link href="/">Home</Link>
             <Link href="#">About</Link>
-            <Link href="#">Contact Us</Link>
-            <Link href="#">Blog</Link>
-            <Link href="#">Reviews</Link>
+            <Link href="#contact">Contact Us</Link>
           </LinksContainer>
           <SocialLinksContainer>
             <SocialLink href="https://web.facebook.com/ChiArchiStudio/" target="_blank">

@@ -43,7 +43,7 @@ export default ({
 			<wbr /> with us.
 		</>
 	),
-	description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	description = 'For all enquiries, please email us by clicking the button below to access the contact form.',
 	submitButtonText = 'Contact Us',
 	textOnLeft = true,
 }) => {
