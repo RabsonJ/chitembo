@@ -3,14 +3,17 @@ import axios from 'axios'
 import tw from "twin.macro";
 import styled from "styled-components";
 import {css} from "styled-components/macro"; //eslint-disable-line
-import { SectionHeading as HeadingTitle, Subheading } from "components/misc/Headings.js";
+import { SectionHeading as HeadingTitle } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { ReactComponent as TagIcon } from "feather-icons/dist/icons/tag.svg";
+
+import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
 const ThreeColumn = tw.div`flex flex-col items-center lg:items-stretch lg:flex-row flex-wrap`;
-const Column = tw.div`mt-16 lg:w-1/3`;
+const Column = tw.div`mt-16 mx-5`;
 
 const HeadingInfoContainer = tw.div`flex flex-col items-center`;
 const HeadingDescription = tw.p`mt-4 font-medium text-gray-600 text-center max-w-sm`;
@@ -65,33 +68,8 @@ export default ({
     }
 
     getRecords();
-	}, []);
-	const blogPosts = [
-		{
-			imageSrc:
-				'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80',
-			category: 'Construction',
-			title: 'Designing quality buildings',
-			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		},
-		{
-			imageSrc:
-				'https://images.unsplash.com/photo-1479660095429-2cf4e1360472?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80',
-			category: 'Design',
-			title: 'Creating The perfect home office',
-			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		},
-		{
-			imageSrc:
-				'https://images.unsplash.com/photo-1579869847514-7c1a19d2d2ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-			category: '3D Rendering',
-			title: 'The Perfect Visualization',
-			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		},
-	];
+  }, []);
+	
 	return (
 		<Container>
 			<Content>
@@ -101,7 +79,45 @@ export default ({
 							<HeadingTitle>{heading}</HeadingTitle>
 							<HeadingDescription>{description}</HeadingDescription>
 						</HeadingInfoContainer>
-							<ThreeColumn>
+						<ThreeColumn>
+							<Carousel plugins={[
+								'infinite',
+								'arrows',
+								{
+									resolve: slidesToShowPlugin,
+									options: {
+									numberOfSlides: 3
+									}
+								},
+							]}
+							  breakpoints={{
+								740: {
+									plugins: [
+									'infinite',
+									'arrows',
+									{
+										resolve: slidesToShowPlugin,
+										options: {
+										numberOfSlides: 1
+										}
+									},
+								]
+								},
+								1300: {
+									plugins: [
+									'infinite',
+									'arrows',
+									{
+										resolve: slidesToShowPlugin,
+										options: {
+										numberOfSlides: 2
+										}
+									},
+								]
+								}
+							}}
+
+							>
 								{works.filter(work => work.fields?.images !== undefined).map((work) => (
 									<Column key={work.id}>
 										<Card>
@@ -120,6 +136,7 @@ export default ({
 										</Card>
 									</Column>
 								))}
+								</Carousel>
 							</ThreeColumn>
 					</span>		
 				) : null}
