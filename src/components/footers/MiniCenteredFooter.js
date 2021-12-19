@@ -3,10 +3,11 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import {Container as ContainerBase } from "components/misc/Layouts.js"
 import logo from "../../images/logo.svg";
-import { ReactComponent as FacebookIcon } from "../../images/facebook-icon.svg";
+import { ReactComponent as FacebookIcon } from "../../images/facebook.svg";
 import { ReactComponent as TwitterIcon } from "../../images/twitter-icon.svg";
-import { ReactComponent as YoutubeIcon } from "../../images/youtube-icon.svg";
+import { ReactComponent as YoutubeIcon } from "../../images/youtube.svg";
 import { ReactComponent as LinkedInIcon } from "../../images/linkedin-icon.svg";
+import { ReactComponent as InstagramIcon } from "../../images/instagram.svg";
 
 
 const Container = tw(ContainerBase)`bg-gray-900 text-gray-100 -mx-8 -mb-8`
@@ -48,21 +49,15 @@ export default () => {
             <SocialLink href="https://web.facebook.com/ChiArchiStudio/" target="_blank">
               <FacebookIcon />
             </SocialLink>
-            {/* <SocialLink href="https://twitter.com" target="_blank">
-              <TwitterIcon />
-            </SocialLink> */}
             <SocialLink href="https://youtube.com" target="_blank">
               <YoutubeIcon />
             </SocialLink>
             <SocialLink href="https://www.instagram.com/architecte_chitembo/" target="_blank">
-              <YoutubeIcon />
+              <InstagramIcon />
             </SocialLink>
-            {/* <SocialLink href="#" target="_blank">
-              <LinkedInIcon />
-            </SocialLink> */}
           </SocialLinksContainer>
           <CopyrightText>
-            &copy; Copyright 2021, Chitembo Architecture. All Rights Reserved.
+            &copy; Copyright {new Date().getFullYear()}, Chitembo Architecture. All Rights Reserved.
           </CopyrightText>
         </Row>
       </Content>
