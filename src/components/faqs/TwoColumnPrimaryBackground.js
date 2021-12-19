@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
+import axios from 'axios'
 import styled, { css } from "styled-components/macro"; //eslint-disable-line
 import { Container, ContentWithPaddingXl } from "components/misc/Layouts.js";
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
@@ -31,38 +32,6 @@ export default ({
 	subheading = '',
 	heading = 'Frequently Asked Questions',
 	description = "Some of the common questions asked by our potential clients. If you can't find what you're looking for, please get in touch with us.",
-	faqs = [
-		{
-			question: 'Is consultation free of charge ?',
-			answer:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-		},
-		{
-			question: 'Do you have a refund policy ?',
-			answer:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-		},
-		{
-			question: 'How long do 3D designs usually take ?',
-			answer:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-		},
-		{
-			question: 'Where can I reach you for support ?',
-			answer:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-		},
-		{
-			question: 'What kind of payment methods are available ? ',
-			answer:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-		},
-		{
-			question: 'At what point is the client expected to pay ?',
-			answer:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-		},
-	],
 }) => {
 	const faqCol1 = [];
 	const faqCol2 = [];
@@ -73,11 +42,33 @@ export default ({
 		else setActiveQuestionIndex(questionIndex);
 	};
 
+	  const [faqs, setFaqs] = useState([]);
+
+  useEffect(() => {
+    const getFaqs = async () => {
+      try {
+        const { data } = await axios.get(
+					`https://api.airtable.com/v0/appz7kvM5UFGYYwLW/FAQs?maxRecords=6`,
+					{
+						headers: {
+							Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_TOKEN}`,
+						},
+					}
+				);
+			setFaqs(data.records);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    getFaqs();
+  }, []);
+
 	faqs.map((faq, index) => {
 		const renderedFaq = (
-			<Faq key={index} onClick={() => toggleQuestion(index)}>
+			<Faq key={faq.id} onClick={() => toggleQuestion(index)}>
 				<Question>
-					<QuestionText>{faq.question}</QuestionText>
+					<QuestionText>{faq.fields.question}</QuestionText>
 					<QuestionToggleIcon
 						variants={{
 							collapsed: { rotate: 0 },
@@ -109,7 +100,7 @@ export default ({
 					animate={activeQuestionIndex === index ? 'open' : 'collapsed'}
 					transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
 				>
-					{faq.answer}
+					{faq.fields.answer}
 				</Answer>
 			</Faq>
 		);

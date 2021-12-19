@@ -62,7 +62,6 @@ export default ({
 					}
 				);
 			setWorks(data.records);
-			console.log(data.records)
       } catch (err) {
         console.error(err);
       }
