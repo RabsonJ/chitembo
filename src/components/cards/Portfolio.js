@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from 'axios'
 import tw from "twin.macro";
 import _ from 'lodash'
@@ -7,6 +7,7 @@ import {css} from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading as HeadingTitle } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { ReactComponent as TagIcon } from "feather-icons/dist/icons/tag.svg";
+import ImageViewer from 'react-simple-image-viewer';
 
 import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
@@ -69,7 +70,29 @@ export default ({
 
     getRecords();
   }, []);
-	
+
+	const [currentImage, setCurrentImage] = useState(0);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const [currentViewerImages, setCurrentViewerImages] = useState([]);
+  const images = [
+    'http://placeimg.com/1200/800/nature',
+    'http://placeimg.com/800/1200/nature',
+    'http://placeimg.com/1920/1080/nature',
+    'http://placeimg.com/1500/500/nature',
+  ];
+
+	const openImageViewer = useCallback((index, images) => {
+		const currentImagesUrls = images.map(image => image.url)
+		setCurrentViewerImages(currentImagesUrls)
+    	setCurrentImage(index);
+    	setIsViewerOpen(true);
+  }, []);
+
+  const closeImageViewer = () => {
+    setCurrentImage(0);
+    setIsViewerOpen(false);
+  };
+
 	return (
 		<Container id="work">
 			<Content>
@@ -118,10 +141,14 @@ export default ({
 							}}
 
 							>
-								{works.filter(work => work.fields?.images !== undefined).map((work) => (
+								{works.filter(work => work.fields?.images !== undefined).map((work, index) => (
 									<Column key={work.id}>
 										<Card>
-											<Image imageSrc={work.fields?.images !== undefined ? work.fields?.images[0].url : ''} />
+											<Image
+												imageSrc={work.fields?.images !== undefined ? work.fields?.images[0].url : ''}
+												onClick={() => openImageViewer(index, work.fields.images)}
+												style={{ cursor: 'pointer' }}
+											/>
 											<Details>
 												<MetaContainer>
 													<Meta>
@@ -139,8 +166,17 @@ export default ({
 									</Column>
 								))}
 								</Carousel>
-							</ThreeColumn>
-					</span>		
+						</ThreeColumn>
+						{isViewerOpen && (
+							<ImageViewer
+								src={currentViewerImages}
+								currentIndex={ currentImage }
+								disableScroll={ false }
+								closeOnClickOutside={ true }
+								onClose={ closeImageViewer }
+							/>
+							)}
+					</span>
 				) : null}
 				{/* <Link href='/'>Read Post</Link> */}
 			</Content>
