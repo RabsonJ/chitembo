@@ -98,7 +98,7 @@ export default () => {
 					))
 				) : (
 					<div>
-						<p>Fetching Data...</p>
+						<p>Loading Services...</p>
 					</div>
 				)}
 			</ThreeColumnContainer>

@@ -47,7 +47,7 @@ export default ({
 			Our <span tw="text-yellow-800">Amazing Work.</span>
 		</>
 	),
-	description = 'Some amazing of the amazing work we have done for our clients.',
+	description = 'Some of the amazing work we have done for our clients.',
 }) => {
 	  const [works, setWorks] = useState([]);
 
@@ -74,12 +74,6 @@ export default ({
 	const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentViewerImages, setCurrentViewerImages] = useState([]);
-  const images = [
-    'http://placeimg.com/1200/800/nature',
-    'http://placeimg.com/800/1200/nature',
-    'http://placeimg.com/1920/1080/nature',
-    'http://placeimg.com/1500/500/nature',
-  ];
 
 	const openImageViewer = useCallback((index, images) => {
 		const currentImagesUrls = images.map(image => image.url)
@@ -88,9 +82,11 @@ export default ({
     	setIsViewerOpen(true);
   }, []);
 
-  const closeImageViewer = () => {
+	const closeImageViewer = () => {
+	  alert(Carousel)
+	  console.log('Logged', Carousel)
     setCurrentImage(0);
-    setIsViewerOpen(false);
+	  setIsViewerOpen(false);
   };
 
 	return (
