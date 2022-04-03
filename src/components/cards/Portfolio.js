@@ -8,6 +8,7 @@ import { SectionHeading as HeadingTitle } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { ReactComponent as TagIcon } from "feather-icons/dist/icons/tag.svg";
 import ImageViewer from 'react-simple-image-viewer';
+import Select from 'react-select'
 
 import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
@@ -50,6 +51,7 @@ export default ({
 	description = 'Some of the amazing work we have done for our clients.',
 }) => {
 	  const [works, setWorks] = useState([]);
+	  const [serviceOptions, setServiceOptions] = useState([]);
 
   useEffect(() => {
     const getRecords = async () => {
@@ -62,13 +64,21 @@ export default ({
 						},
 					}
 				);
-			setWorks(data.records);
+				const options = data.records.map(work => {
+					return {
+						...work,
+						value: work.id,
+						label: work.fields.title
+					}
+				})
+			setWorks(options);
+			setServiceOptions(options)
       } catch (err) {
         console.error(err);
       }
     }
 
-    getRecords();
+	  getRecords();
   }, []);
 
 	const [currentImage, setCurrentImage] = useState(0);
@@ -83,11 +93,19 @@ export default ({
   }, []);
 
 	const closeImageViewer = () => {
-	  alert(Carousel)
-	  console.log('Logged', Carousel)
     setCurrentImage(0);
 	  setIsViewerOpen(false);
-  };
+	};
+
+	console.log('works ', serviceOptions)
+	const handleOptionChange = (e) => {
+		const options = works.find(work => work.id === e.id)
+		if (options === undefined) {
+			setServiceOptions([])
+		}
+		console.log('Changed ', serviceOptions)
+		setServiceOptions([options])
+	}
 
 	return (
 		<Container id="work">
@@ -97,6 +115,7 @@ export default ({
 						<HeadingInfoContainer>
 							<HeadingTitle>{heading}</HeadingTitle>
 							<HeadingDescription>{description}</HeadingDescription>
+							<Select options={works} value={works[0]} onChange={e => handleOptionChange(e)} />
 						</HeadingInfoContainer>
 						<ThreeColumn>
 							<Carousel plugins={[
@@ -137,12 +156,11 @@ export default ({
 							}}
 
 							>
-								{works.filter(work => work.fields?.images !== undefined).map((work, index) => (
+								{serviceOptions.filter(work => work.fields?.images !== undefined).map((work) => (
 									<Column key={work.id}>
 										<Card>
 											<Image
 												imageSrc={work.fields?.images !== undefined ? work.fields?.images[0].url : ''}
-												onClick={() => openImageViewer(index, work.fields.images)}
 												style={{ cursor: 'pointer' }}
 											/>
 											<Details>
